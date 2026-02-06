@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', router);
 
-User.hasMany(Task);
-Task.belongsTo(User);
+User.hasMany(Task, { foreignKey: 'userId' });
+Task.belongsTo(User, { foreignKey: 'userId' });
 
 const start = async () => {
   try {
