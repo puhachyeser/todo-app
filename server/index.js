@@ -4,11 +4,15 @@ const sequelize = require('./config/db');
 const User = require('./models/User');
 const Task = require('./models/Task');
 const router = require('./routes/index');
+const errorHandler = require('./middleware/error-handler')
+const notFound = require('./middleware/not-found')
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api', router);
+app.use(notFound);
+app.use(errorHandler);
 
 User.hasMany(Task, { foreignKey: 'userId' });
 Task.belongsTo(User, { foreignKey: 'userId' });
