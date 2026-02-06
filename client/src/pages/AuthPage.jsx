@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { login, registration } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
 
-const AuthPage = ({ isLogin }) => {
+const AuthPage = ({ isLogin, setIsAuth }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const AuthPage = ({ isLogin }) => {
     const mutation = useMutation({
         mutationFn: isLogin ? login : registration,
         onSuccess: () => {
-            alert(isLogin ? 'Logged in!' : 'Registered!');
+            setIsAuth(true);
             navigate('/dashboard');
         },
         onError: (error) => {
